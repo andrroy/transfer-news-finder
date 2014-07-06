@@ -30,23 +30,29 @@ def get_current_itk_thread():
 
 
 
-
-
-
 link = get_current_itk_thread()
-
 
 resp = opener.open(link)
 html = resp.read()
 
 soup = BeautifulSoup(html)
 
-##	Go through posts in thread
-posts = soup.findAll('article')
+posts = soup.findAll("li", { "class" : "message" })
 
 for post in posts:
-    print "<hr>"
-    print post
+	print '<hr>'
+	poster = post.find('a', {'class': 'username'})
+	content = post.findAll('article')
+	ratings = post.findAll("ul", { "class" : "dark_postrating_outputlist" })
+
+	print poster
+	print content
+
+	for rating in ratings:
+		print rating
+
+	print '<hr>'
+
 
 
 ## End
