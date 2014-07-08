@@ -2,6 +2,7 @@
 
 from bs4 import BeautifulSoup
 import urllib, urllib2, cookielib
+import stripper
 
 ## Log in with session #####
 def login(username, password):	
@@ -35,13 +36,9 @@ def parse_itk_page(opener, link):
 	posts = soup.findAll("li", { "class" : "message" })
 
 	for post in posts:
-		# print '<hr>'
 		poster = post.find('a', {'class': 'username'})
 		content = post.findAll('article')
 		ratings = post.findAll("ul", { "class" : "dark_postrating_outputlist" })
-
-		#print poster
-		#print content
 
 		for rating in ratings:
 			s = BeautifulSoup(str(rating))
@@ -52,8 +49,9 @@ def parse_itk_page(opener, link):
 
 		if(post_should_be_saved):
 			print poster
-			print content
+			print str(content).strip('[]')
 			print ratings
+			#print stripper.strip_html( str(content).strip('[]') )
 			post_should_be_saved = False
 
 
@@ -64,9 +62,6 @@ def parse_itk_page(opener, link):
 		site += next_page
 		parse_itk_page(opener, site)
 			
-
-
-		# print '<hr>'
 
 
 def get_current_page(soup):
@@ -81,11 +76,6 @@ def get_next_page(soup):
 			return a['href']
 
 	return ''
-	# next_page = page_nav.find('a', { 'class': 'text'})
-	# print next_page.string
-	# print next_page
-	# print "Next page called, response is: %s" % next_page['href']
-	# return next_page['href']
 
 
 def parse_itk_thread(opener, link):
