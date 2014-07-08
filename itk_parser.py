@@ -18,7 +18,7 @@ opener = spurscommunity.login(username, password)
 link = spurscommunity.get_current_itk_thread(opener)
 
 
-spurscommunity.parse_itk_page(opener, link)
+spurscommunity.parse_itk_thread(opener, link)
 
 
 

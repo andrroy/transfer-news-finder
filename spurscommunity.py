@@ -3,6 +3,7 @@
 from bs4 import BeautifulSoup
 import urllib, urllib2, cookielib
 import stripper
+import utilities
 
 ## Log in with session #####
 def login(username, password):	
@@ -24,7 +25,7 @@ def get_current_itk_thread(opener):
 	return link
 
 ## Parse current page
-def parse_itk_page(opener, link):
+def parse_itk_thread(opener, link):
 
 	post_should_be_saved = False
 
@@ -48,8 +49,9 @@ def parse_itk_page(opener, link):
 
 
 		if(post_should_be_saved):
-			print poster
-			print str(content).strip('[]')
+			print utilities.fix_spurscommunity_url( str(poster) ) 
+			#print str(content).strip('[]')
+			print utilities.fix_spurscommunity_url( str(content) )
 			print ratings
 			#print stripper.strip_html( str(content).strip('[]') )
 			post_should_be_saved = False
@@ -60,7 +62,7 @@ def parse_itk_page(opener, link):
 	if next_page:
 		site = 'http://www.spurscommunity.co.uk/'
 		site += next_page
-		parse_itk_page(opener, site)
+		parse_itk_thread(opener, site)
 			
 
 
@@ -77,6 +79,3 @@ def get_next_page(soup):
 
 	return ''
 
-
-def parse_itk_thread(opener, link):
-	print "lol"
