@@ -15,10 +15,11 @@ password = config.password
 opener = spurscommunity.login(username, password)
 
 # Get link to itk thread
-link = spurscommunity.get_current_itk_thread(opener)
+# link = spurscommunity.get_current_itk_thread(opener)
 
+# spurscommunity.parse_itk_thread(opener, link)
 
-spurscommunity.parse_itk_thread(opener, link)
+spurscommunity.parse_itk_thread(opener, 'http://spurscommunity.co.uk/index.php?threads/the-daily-itk-discussion-thread-8th-july-2014.110363/')
 
 
 
